@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ エンドポイント内ページ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-4">
+        <h1 class="mb-4">エンドポイントURL 検証デモ</h1>
+
+        <div class="card border-success mb-4">
+            <div class="card-header bg-success text-white">
+                ✅ エンドポイント内のページ
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    このページはLINE Developersコンソールで設定したエンドポイントURL (<code>/myapp/</code>) の配下です。
+                </p>
+                <p class="card-text font-weight-bold">
+                    ヘッダーのアクションボタン「ホームに追加」が正常に動作するはずです。
+                </p>
+                <a href="/other/index.html" class="btn btn-secondary mt-3">→ エンドポイント外のページへ移動</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">カスタムボタンでの検証</h5>
+                <p class="card-text">このボタンはどのページからでも成功するはずです。</p>
+                <button id="customShortcutButton" class="btn btn-primary btn-block">カスタムショートカット作成</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/common.js"></script>
+</body>
+</html>

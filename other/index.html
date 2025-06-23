@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❌ エンドポイント外ページ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-4">
+        <h1 class="mb-4">エンドポイントURL 検証デモ</h1>
+
+        <div class="card border-danger mb-4">
+            <div class="card-header bg-danger text-white">
+                ❌ エンドポイント外のページ
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    このページはエンドポイントURL (<code>/myapp/</code>) の配下ではありません。
+                </p>
+                <p class="card-text font-weight-bold">
+                    ヘッダーのアクションボタン「ホームに追加」を押すと「エラー」と表示されるはずです。
+                </p>
+                <a href="/myapp/index.html" class="btn btn-secondary mt-3">→ エンドポイント内のページへ戻る</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">カスタムボタンでの検証</h5>
+                <p class="card-text">このボタンはどのページからでも成功するはずです。</p>
+                <button id="customShortcutButton" class="btn btn-primary btn-block">カスタムショートカット作成</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/common.js"></script>
+</body>
+</html>
