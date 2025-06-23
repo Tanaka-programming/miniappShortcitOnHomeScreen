@@ -3,125 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LINEミニアプリ エンドポイントURL 検証デモ</title>
-    <style>
-        body { font-family: sans-serif; padding: 1em; line-height: 1.6; }
-        .container { max-width: 600px; margin: 0 auto; }
-        .card { border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; margin-bottom: 1em; }
-        .card-ok { background-color: #e6f7ff; border-color: #91d5ff; }
-        .card-ng { background-color: #fff1f0; border-color: #ffa39e; }
-        h1 { font-size: 1.5em; }
-        h2 { font-size: 1.2em; border-bottom: 2px solid #eee; padding-bottom: 0.3em; }
-        p { margin: 0.5em 0; }
-        code { background-color: #f0f0f0; padding: 0.2em 0.4em; border-radius: 4px; }
-        .nav { margin-bottom: 1.5em; display: flex; gap: 1em; }
-        .nav a { display: inline-block; padding: 0.5em 1em; background-color: #00B900; color: white; text-decoration: none; border-radius: 5px; }
-        .nav a:hover { opacity: 0.8; }
-        .button {
-            display: block; width: 100%; padding: 0.8em; font-size: 1em; font-weight: bold;
-            color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; text-align: center;
-        }
-        .button:hover { opacity: 0.8; }
-        .info { background-color: #f9f9f9; border: 1px solid #eee; padding: 1em; margin-top: 1.5em; border-radius: 8px; }
-    </style>
+    <title>✅ エンドポイント内ページ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
+<body class="bg-light">
 
-    <div class="container">
-        <h1>エンドポイントURL 検証デモ</h1>
+    <div class="container mt-4">
+        <h1 class="mb-4">エンドポイントURL 検証デモ</h1>
 
-        
-        <div class="nav">
-            <a href="#/home">① エンドポイント内のページへ</a>
-            <a href="#/other">② エンドポイント外のページへ</a>
-        </div>
-
-        <div id="content">
+        <div class="card border-success mb-4">
+            <div class="card-header bg-success text-white">
+                ✅ エンドポイント内のページ
             </div>
+            <div class="card-body">
+                <p class="card-text">
+                    このページはLINE Developersコンソールで設定したエンドポイントURL (<code>/myapp/</code>) の配下です。
+                </p>
+                <p class="card-text font-weight-bold">
+                    ヘッダーのアクションボタン「ホームに追加」が正常に動作するはずです。
+                </p>
+                <a href="/other/index.html" class="btn btn-secondary mt-3">→ エンドポイント外のページへ移動</a>
+            </div>
+        </div>
         
-        <div class="info">
-            <h2>カスタムボタンでの検証</h2>
-            <p>このボタンは <code>liff.createShortcutOnHomeScreen()</code> を直接呼び出します。どのページからでも成功するはずです。</p>
-            <button id="customShortcutButton" class="button">カスタムショートカット作成</button>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">カスタムボタンでの検証</h5>
+                <p class="card-text">このボタンはどのページからでも成功するはずです。</p>
+                <button id="customShortcutButton" class="btn btn-primary btn-block">カスタムショートカット作成</button>
+            </div>
         </div>
     </div>
 
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- 1. LIFF IDを設定してください ---
-            const liffId = "2006999900-AaL1OXwn"; // 自身のLIFF IDに書き換えてください
-
-            // --- 2. エンドポイントURLを設定してください ---
-            const endpointPath = " https://tanaka-programming.github.io/miniappShortcitOnHomeScreen/"; // 例: "https://example.com/myapp/" の場合は "/myapp/"
-
-            const contentEl = document.getElementById('content');
-            const customShortcutButton = document.getElementById('customShortcutButton');
-            let liffObject = null;
-
-            async function initializeLiff() {
-                try {
-                    await liff.init({ liffId });
-                    liffObject = liff;
-                    if (!liff.isLoggedIn()) {
-                        liff.login();
-                    } else {
-                        // URLハッシュに基づいて初期ページを描画
-                        renderPage();
-                    }
-                } catch (e) {
-                    console.error('LIFF Initialization failed', e);
-                    alert('LIFFの初期化に失敗しました。LIFF IDが正しく設定されているか確認してください。');
-                }
-            }
-            
-            // ページを描画する関数
-            function renderPage() {
-                const path = window.location.hash.substring(1) || '/home'; // デフォルトは/home
-
-                if (path.startsWith(endpointPath) || path === '/home') {
-                    // エンドポイント内のページ
-                    contentEl.innerHTML = `
-                        <div class="card card-ok">
-                            <h2>✅ エンドポイント内のページ</h2>
-                            <p>現在のパス: <code>${path}</code></p>
-                            <p>このページでは、ヘッダーのアクションボタン「ホームに追加」が<strong>正常に動作する</strong>はずです。</p>
-                        </div>
-                    `;
-                } else {
-                    // エンドポイント外のページ
-                    contentEl.innerHTML = `
-                        <div class="card card-ng">
-                            <h2>❌ エンドポイント外のページ</h2>
-                            <p>現在のパス: <code>${path}</code></p>
-                            <p>このページでは、ヘッダーのアクションボタン「ホームに追加」を押すと<strong>「エラー」と表示される</strong>はずです。</p>
-                        </div>
-                    `;
-                }
-            }
-
-            // カスタムショートカットボタンの処理
-            customShortcutButton.addEventListener('click', async () => {
-                if (!liffObject) {
-                    alert('LIFFが初期化されていません。');
-                    return;
-                }
-                try {
-                    await liffObject.createShortcutOnHomeScreen();
-                    alert('カスタムショートカットの作成をリクエストしました。');
-                } catch (err) {
-                    console.error('カスタムショートカットの作成に失敗しました:', err);
-                    alert('カスタムショートカットの作成に失敗しました。');
-                }
-            });
-
-            // ハッシュの変更を検知してページを再描画
-            window.addEventListener('hashchange', renderPage);
-
-            // LIFFを初期化
-            initializeLiff();
-        });
-    </script>
+    <script src="/common.js"></script>
 </body>
 </html>
